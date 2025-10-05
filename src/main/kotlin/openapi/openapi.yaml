@@ -1,0 +1,55 @@
+paths:
+  /pizza_menu:
+    get:
+      summary: "Получить список пицц"
+      responses:
+        200:
+          description: "Успешный ответ"
+  /pizza_menu/{name}:
+    get:
+      summary: "Получить пиццу по названию"
+      parameters:
+        - name: "name"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "Пицца найдена"
+        400:
+          description: "Некорректный параметр"
+        404:
+          description: "Пицца не найдена"
+  /adding_pizza:
+    post:
+      summary: "Добавить новую пиццу"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pizza'
+      responses:
+        201:
+          description: "Пицца добавлена"
+        400:
+          description: "Некорректный JSON"
+        409:
+          description: "Данная пицца уже существует"
+  /pizza_removal:
+    delete:
+      summary: "Удалить пиццу по названию"
+      parameters:
+        - name: "name"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        204:
+          description: "Пицца удалена"
+        400:
+          description: "Некорректный или отсутствующий параметр"
+        404:
+          description: "Пицца не найдена"

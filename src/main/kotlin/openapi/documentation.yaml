@@ -1,0 +1,78 @@
+openapi: 3.0.1
+info:
+  title: Pizza API
+  version: 1.0.0
+paths:
+  /pizza_menu:
+    get:
+      summary: Получить список всех пицц
+      responses:
+        '200':
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pizza'
+  /pizza_menu/{name}:
+    get:
+      summary: Получить пиццу по имени
+      parameters:
+        - in: path
+          name: name
+          schema:
+            type: string
+          required: true
+          description: Имя пиццы
+      responses:
+        '200':
+          description: Пицца найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pizza'
+        '400':
+          description: Неверный параметр
+        '404':
+          description: Не найдена
+  /adding_pizza:
+    post:
+      summary: Добавить новую пиццу
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pizza'
+      responses:
+        '201':
+          description: Пицца добавлена
+        '409':
+          description: Пицца с таким именем уже существует
+  /pizza_removal:
+    delete:
+      summary: Удалить пиццу по имени
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          required: true
+          description: Имя пиццы для удаления
+      responses:
+        '204':
+          description: Успешно удалено
+        '404':
+          description: Не найдена пицца
+components:
+  schemas:
+    Pizza:
+      type: object
+      properties:
+        name:
+          type: string
+        filling:
+          type: string
+        cost:
+          type: integer
