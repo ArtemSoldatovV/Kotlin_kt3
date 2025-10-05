@@ -17,8 +17,14 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.runner.RunWith
 import kotlin.test.*
 
+fun main(){
+    testGetPizzaMenu()
+    testGetPizzaMenuPizzaWithdrawal()
+}
+
 @RunWith(Enclosed::class)
 class ApiTest {
+
 
     @Test
     fun testGetPizzaMenu() = testApplication {

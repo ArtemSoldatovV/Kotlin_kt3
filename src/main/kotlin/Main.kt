@@ -49,7 +49,7 @@ fun Application.module() {
 
             }
 
-            post("adding_pizza"){
+            post("/adding_pizza"){
                 val newPizza = try {
                     call.receive<Pizza>()
                 } catch(e: Exception) {
@@ -63,7 +63,7 @@ fun Application.module() {
                 call.respond(HttpStatusCode.Created, newPizza)
             }
 
-            delete("pizza_removal"){
+            delete("/pizza_removal"){
                 val nameParam = call.request.queryParameters["name"]
                 val name = nameParam?.toIntOrNull()
                 if (name == null) {
